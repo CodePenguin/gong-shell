@@ -559,6 +559,26 @@ namespace GongSolutions.Shell
         }
 
         /// <summary>
+        /// Gets the file type description of the item.
+        /// </summary>
+        public string FileTypeDescription
+        {
+            get 
+            {
+                IntPtr result = Shell32.SHGetFileInfo(Pidl, 0, out SHFILEINFO info,
+                    Marshal.SizeOf(typeof(SHFILEINFO)),
+                    SHGFI.PIDL | SHGFI.TYPENAME);
+
+                if (result == IntPtr.Zero)
+                {
+                    throw new Exception("Error retrieving file type description");
+                }
+
+                return info.szTypeName;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the item has subfolders.
         /// </summary>
         public bool HasSubFolders
