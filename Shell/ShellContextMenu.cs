@@ -253,7 +253,18 @@ namespace GongSolutions.Shell
                     IntPtr.Zero);
                 if (command > 0)
                 {
-                    InvokeCommand(command - m_CmdFirst);
+                    try
+                    {
+                        InvokeCommand(command - m_CmdFirst);
+                    }
+                    catch (COMException ex)
+                    {
+                        var hresult = (HResult)ex.ErrorCode;
+                        if (hresult != HResult.E_ABORT && hresult != HResult.E_USER_CANCELLED)
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
         }
