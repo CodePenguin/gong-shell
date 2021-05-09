@@ -7,7 +7,7 @@ using GongSolutions.Shell.Interop;
 
 namespace GongSolutions.Shell
 {
-    class SystemImageList
+    public static class SystemImageList
     {
         public static void DrawSmallImage(Graphics g, Point point,
                                           int imageIndex, bool selected)

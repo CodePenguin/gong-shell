@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 #pragma warning disable 1591
+#pragma warning disable CA1712
 
 namespace GongSolutions.Shell.Interop
 {
@@ -213,7 +214,7 @@ namespace GongSolutions.Shell.Interop
     }
 
     [Flags]
-    enum SHGFI
+    public enum SHGFI
     {
         ICON = 0x000000100,
         DISPLAYNAME = 0x000000200,
@@ -331,7 +332,7 @@ namespace GongSolutions.Shell.Interop
         public IntPtr cStr;
     }
 
-    class Shell32
+    public class Shell32
     {
         [DllImport("shell32.dll", EntryPoint = "#660")]
         public static extern bool FileIconInit(bool bFullInit);

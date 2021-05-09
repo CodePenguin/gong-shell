@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace GongSolutions.Shell.Interop
 {
-    public class Kernel32
+    public static class Kernel32
     {
         [DllImport("kernel32.dll")]
         public static extern IntPtr GlobalLock(IntPtr hMem);

@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 #pragma warning disable 1591
+#pragma warning disable CA1712
 
 namespace GongSolutions.Shell.Interop
 {
@@ -190,7 +191,7 @@ namespace GongSolutions.Shell.Interop
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    struct TVITEMW
+    public struct TVITEMW
     {
         public TVIF mask;
         public IntPtr hItem;
@@ -215,7 +216,7 @@ namespace GongSolutions.Shell.Interop
         GW_ENABLEDPOPUP = 6
     }
 
-    class User32
+    public static class User32
     {
         [DllImport("user32.dll")]
         public static extern bool DeleteMenu(IntPtr hMenu, int uPosition,

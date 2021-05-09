@@ -19,7 +19,7 @@ namespace GongSolutions.Shell.Interop
         PRESERVEALPHA = 0x00001000,
     }
 
-    public class ComCtl32
+    public static class ComCtl32
     {
         [DllImport("comctl32")]
         public static extern bool ImageList_Draw(IntPtr himl,

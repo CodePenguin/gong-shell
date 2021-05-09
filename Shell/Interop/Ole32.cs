@@ -7,7 +7,7 @@ using ComTypes = System.Runtime.InteropServices.ComTypes;
 
 namespace GongSolutions.Shell.Interop
 {
-    public class Ole32
+    public static class Ole32
     {
         [DllImport("ole32.dll")]
         public static extern void CoTaskMemFree(IntPtr pv);

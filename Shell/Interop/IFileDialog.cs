@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 #pragma warning disable 1591
+#pragma warning disable CA1712
 
 namespace GongSolutions.Shell.Interop
 {
@@ -32,7 +33,7 @@ namespace GongSolutions.Shell.Interop
         FDAP_TOP = 0x1
     }
 
-    enum FILEOPENDIALOGOPTIONS
+    public enum FILEOPENDIALOGOPTIONS
     {
         FOS_OVERWRITEPROMPT = 0x2,
         FOS_STRICTFILETYPES = 0x4,

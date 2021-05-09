@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GongSolutions.Shell.Interop
 {
-    public class ShlWapi
+    public static class ShlWapi
     {
         [DllImport("shlwapi.dll")]
         public static extern Int32 StrRetToBuf(ref STRRET pstr, IntPtr pidl,
