@@ -219,8 +219,14 @@ namespace GongSolutions.Shell.Interop
     public static class User32
     {
         [DllImport("user32.dll")]
+        public static extern IntPtr CreatePopupMenu();
+
+        [DllImport("user32.dll")]
         public static extern bool DeleteMenu(IntPtr hMenu, int uPosition,
             MF uFlags);
+
+        [DllImport("user32.dll")]
+        public static extern bool DestroyMenu(IntPtr hMenu);
 
         [DllImport("user32.dll")]
         public static extern bool DestroyWindow(IntPtr hWnd);

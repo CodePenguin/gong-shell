@@ -8,6 +8,10 @@ using GongSolutions.Shell.Interop;
 
 namespace GongSolutions.Shell
 {
+#if !NET4
+    using Menu = MarshalByRefObject;
+#endif
+
     /// <summary>
     /// Provides support for displaying the context menu of a shell item.
     /// </summary>
@@ -225,9 +229,11 @@ namespace GongSolutions.Shell
         /// </param>
         public void Populate(Menu menu)
         {
+#if NET4
             RemoveShellMenuItems(menu);
             m_ComInterface.QueryContextMenu(menu.Handle, 0,
                 m_CmdFirst, int.MaxValue, CMF.EXPLORE);
+#endif
         }
 
         /// <summary>
@@ -244,6 +250,7 @@ namespace GongSolutions.Shell
         /// </param>
         public void ShowContextMenu(Control control, Point pos)
         {
+#if NET4
             using (ContextMenu menu = new ContextMenu())
             {
                 pos = control.PointToScreen(pos);
@@ -267,6 +274,35 @@ namespace GongSolutions.Shell
                     }
                 }
             }
+#else
+            IntPtr menuHandle = User32.CreatePopupMenu();
+            try
+            {
+                pos = control.PointToScreen(pos);
+                int command = User32.TrackPopupMenuEx(menuHandle,
+                    TPM.TPM_RETURNCMD, pos.X, pos.Y, m_MessageWindow.Handle,
+                    IntPtr.Zero);
+                if (command > 0)
+                {
+                    try
+                    {
+                        InvokeCommand(command - m_CmdFirst);
+                    }
+                    catch (COMException ex)
+                    {
+                        var hresult = (HResult)ex.ErrorCode;
+                        if (hresult != HResult.E_ABORT && hresult != HResult.E_USER_CANCELLED)
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                User32.DestroyMenu(menuHandle);
+            }
+#endif
         }
 
         /// <summary>
@@ -338,14 +374,17 @@ namespace GongSolutions.Shell
             info.fMask = MIM.MIM_MENUDATA;
             info.dwMenuData = (UIntPtr)tag;
 
+#if NET4
             foreach (MenuItem item in menu.MenuItems)
             {
                 User32.SetMenuInfo(item.Handle, ref info);
             }
+#endif
         }
 
         void RemoveShellMenuItems(Menu menu)
         {
+#if NET4
             const int tag = 0xAB;
             List<int> remove = new List<int>();
             int count = User32.GetMenuItemCount(menu.Handle);
@@ -384,6 +423,7 @@ namespace GongSolutions.Shell
             {
                 User32.DeleteMenu(menu.Handle, position, MF.MF_BYPOSITION);
             }
+#endif
         }
 
         class MessageWindow : Control
