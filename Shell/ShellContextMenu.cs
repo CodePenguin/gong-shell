@@ -279,6 +279,8 @@ namespace GongSolutions.Shell
             try
             {
                 pos = control.PointToScreen(pos);
+                m_ComInterface.QueryContextMenu(menuHandle, 0,
+                    m_CmdFirst, int.MaxValue, CMF.EXPLORE);
                 int command = User32.TrackPopupMenuEx(menuHandle,
                     TPM.TPM_RETURNCMD, pos.X, pos.Y, m_MessageWindow.Handle,
                     IntPtr.Zero);
