@@ -250,10 +250,22 @@ namespace GongSolutions.Shell
         /// </param>
         public void ShowContextMenu(Control control, Point pos)
         {
+            pos = control.PointToScreen(pos);
+            ShowContextMenu(pos);
+        }
+
+        /// <summary>
+        /// Shows a context menu for a shell item.
+        /// </summary>
+        /// 
+        /// <param name="pos">
+        /// The screen position that the menu should be displayed at.
+        /// </param>
+        public void ShowContextMenu(Point pos)
+        {
 #if NET4
             using (ContextMenu menu = new ContextMenu())
             {
-                pos = control.PointToScreen(pos);
                 Populate(menu);
                 int command = User32.TrackPopupMenuEx(menu.Handle,
                     TPM.TPM_RETURNCMD, pos.X, pos.Y, m_MessageWindow.Handle,
@@ -278,7 +290,6 @@ namespace GongSolutions.Shell
             IntPtr menuHandle = User32.CreatePopupMenu();
             try
             {
-                pos = control.PointToScreen(pos);
                 m_ComInterface.QueryContextMenu(menuHandle, 0,
                     m_CmdFirst, int.MaxValue, CMF.EXPLORE);
                 int command = User32.TrackPopupMenuEx(menuHandle,
