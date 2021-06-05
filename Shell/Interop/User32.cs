@@ -226,6 +226,9 @@ namespace GongSolutions.Shell.Interop
             MF uFlags);
 
         [DllImport("user32.dll")]
+        public static extern bool DestroyIcon(IntPtr hIcon);
+
+        [DllImport("user32.dll")]
         public static extern bool DestroyMenu(IntPtr hMenu);
 
         [DllImport("user32.dll")]
