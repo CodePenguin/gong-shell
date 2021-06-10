@@ -14,6 +14,9 @@
     <NoWarn>0419</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <SupportedPlatform Include="Windows" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="ShellNotificationListener.cs">
       <SubType>Component</SubType>
     </Compile>
