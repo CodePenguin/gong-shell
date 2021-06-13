@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net5.0-windows;net40</TargetFrameworks>
-    <DefineConstants Condition=" '$(TargetFrameworkVersion)' == 'v4.0' ">NET4</DefineConstants>
     <OutputType>Library</OutputType>
     <RootNamespace>GongSolutions.Shell</RootNamespace>
     <AssemblyName>GongShell</AssemblyName>

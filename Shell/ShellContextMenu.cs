@@ -8,7 +8,7 @@ using GongSolutions.Shell.Interop;
 
 namespace GongSolutions.Shell
 {
-#if !NET4
+#if !NETFRAMEWORK
     using Menu = MarshalByRefObject;
 #endif
 
@@ -229,7 +229,7 @@ namespace GongSolutions.Shell
         /// </param>
         public void Populate(Menu menu)
         {
-#if NET4
+#if NETFRAMEWORK
             RemoveShellMenuItems(menu);
             m_ComInterface.QueryContextMenu(menu.Handle, 0,
                 m_CmdFirst, int.MaxValue, CMF.EXPLORE);
@@ -263,7 +263,7 @@ namespace GongSolutions.Shell
         /// </param>
         public void ShowContextMenu(Point pos)
         {
-#if NET4
+#if NETFRAMEWORK
             using (ContextMenu menu = new ContextMenu())
             {
                 Populate(menu);
@@ -387,7 +387,7 @@ namespace GongSolutions.Shell
             info.fMask = MIM.MIM_MENUDATA;
             info.dwMenuData = (UIntPtr)tag;
 
-#if NET4
+#if NETFRAMEWORK
             foreach (MenuItem item in menu.MenuItems)
             {
                 User32.SetMenuInfo(item.Handle, ref info);
@@ -397,7 +397,7 @@ namespace GongSolutions.Shell
 
         void RemoveShellMenuItems(Menu menu)
         {
-#if NET4
+#if NETFRAMEWORK
             const int tag = 0xAB;
             List<int> remove = new List<int>();
             int count = User32.GetMenuItemCount(menu.Handle);
